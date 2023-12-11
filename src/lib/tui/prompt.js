@@ -1,5 +1,6 @@
 import Readline from 'node:readline';
 import {scheduler} from 'node:timers/promises';
+import {createIntervalPrinter} from './print.js';
 
 export const rl = Readline.createInterface({
   input: process.stdin,
@@ -39,6 +40,7 @@ export function promptAsync(query) {
 export const waitOrAbort = async (milliseconds, onStart) => {
   // scheduler.wait(milliseconds);
   rl.setPrompt('Press any key to cancel: ');
+  const interval = createIntervalPrinter(100);
   const ac = new AbortController();
   const signal = ac.signal;
 
@@ -46,6 +48,7 @@ export const waitOrAbort = async (milliseconds, onStart) => {
     const abort = () => {
       rl.pause();
       ac.abort();
+      interval.done();
       console.log('\n');
     };
 
@@ -54,11 +57,13 @@ export const waitOrAbort = async (milliseconds, onStart) => {
     // start
     onStart && onStart();
     rl.prompt();
+    interval.start();
 
     scheduler.wait(milliseconds, {signal})
         .then(() => {
           rl.pause();
           resolve(false);
+          interval.done();
           process.stdin.off('keypress', abort);
         })
         .catch(() => resolve(true));

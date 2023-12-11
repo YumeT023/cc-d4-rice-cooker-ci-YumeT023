@@ -28,3 +28,26 @@ export const printHeader = (header) => {
   console.log(header);
   console.log('------------------');
 };
+
+/**
+ * @param {number} milliseconds
+ * @return {{done: function(), start: function()}}
+ */
+export const createIntervalPrinter = (milliseconds) => {
+  let time = 0;
+  let intervalId = null;
+
+  return {
+    done: () => {
+      intervalId && clearInterval(intervalId);
+    },
+    start: () => {
+      intervalId = setInterval(() => {
+        process.stdout.clearLine();
+        process.stdout.cursorTo(0);
+        process.stdout.write(`timer: ${time}ms`);
+        time += milliseconds;
+      }, milliseconds);
+    },
+  };
+};

@@ -132,8 +132,6 @@ export class RiceCooker {
       'try to cancel');
     });
 
-    console.log('is_cancelled', cancelled);
-
     if (cancelled) {
       console.log('[DANGEROUS] Do not use this option ' +
         'too often for your security');
