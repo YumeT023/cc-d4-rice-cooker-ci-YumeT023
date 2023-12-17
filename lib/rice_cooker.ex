@@ -1,18 +1,27 @@
 defmodule RiceCooker do
-  @moduledoc """
-  Documentation for `RiceCooker`.
-  """
+  alias RiceCooker.Tui
+  alias RiceCooker.Core.Model
 
-  @doc """
-  Hello world.
+  defp get_rice_cooker, do: %Model.RiceCooker{}
 
-  ## Examples
+  def main(_) do
+    get_rice_cooker()
+    |> show_menu()
+  end
 
-      iex> RiceCooker.hello()
-      :world
+  defp show_menu(cooker) do
+    menu = Tui.Readline.select(["Cook", "Exit"])
+    run(menu, cooker)
+  end
 
-  """
-  def hello do
-    IO.puts(:hello_world)
+  defp run("Cook", cooker) do
+    IO.puts("cook")
+    show_menu(cooker)
+  end
+
+  defp run("Exit", _), do: IO.puts("Done!")
+
+  defp run(_, cooker) do
+    show_menu(cooker)
   end
 end

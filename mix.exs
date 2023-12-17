@@ -28,6 +28,6 @@ defmodule RiceCooker.MixProject do
   end
 
   defp escript do
-    [main_module: RiceCooker.CLI]
+    [main_module: RiceCooker]
   end
 end
