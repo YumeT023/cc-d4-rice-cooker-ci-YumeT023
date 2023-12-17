@@ -1,7 +1,14 @@
 defmodule RiceCooker.Tui.Readline do
-  def prompt_menu(menu \\ []) do
-    Enum.each(menu, &(&2 <> &1))
-    prompt("Select one")
+  def select(list) do
+    IO.puts "\n"
+    list
+    |> Enum.with_index()
+    |> Enum.each(fn {label, idx} ->
+      IO.puts("#{idx + 1} - #{label}")
+    end)
+
+    visual_idx = int("Select menu")
+    Enum.at(list, visual_idx - 1)
   end
 
   defp prompt(query), do: IO.gets(format_query(query)) |> String.trim()
