@@ -12,11 +12,17 @@ defmodule RiceCooker.Tui.Readline do
     Enum.at(list, visual_idx - 1)
   end
 
-  defp prompt(query), do: IO.gets(format_query(query)) |> String.trim()
+  defp prompt(query, default) do
+    case IO.gets(format_query(query)) do
+      {:error, _} -> default
+      :eof -> default
+      data -> data |> String.trim()
+    end
+  end
 
-  def int(query), do: prompt(query) |> String.to_integer()
+  def int(query), do: prompt(query, "0") |> String.to_integer()
 
-  def str(query), do: prompt(query)
+  def str(query), do: prompt(query, "")
 
   defp format_query(query), do: "#{query} >\n"
 end

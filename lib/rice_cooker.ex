@@ -17,6 +17,8 @@ defmodule RiceCooker do
         "Unplug",
         "Open the lid",
         "Close the lid",
+        "Place raw  food in the inner pot",
+        "Add water",
         "Cook",
         "Get ready-to-serve food",
         "Exit"
@@ -47,7 +49,17 @@ defmodule RiceCooker do
   end
 
   defp run("Cook", cooker) do
-    show_menu(cooker)
+    show_menu(cooker |> Rc.cook())
+  end
+
+  defp run("Place raw food in the inner pot", cooker) do
+    cup = Tui.Readline.int("Rice cup")
+    show_menu(cooker |> Rc.add_rice_cup(cup))
+  end
+
+  defp run("Add water", cooker) do
+    cup = Tui.Readline.int("Water cup")
+    show_menu(cooker |> Rc.add_water_cup(cup))
   end
 
   defp run("Get ready-to-serve food", cooker) do
