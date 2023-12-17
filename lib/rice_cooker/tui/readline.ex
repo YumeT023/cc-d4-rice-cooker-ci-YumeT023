@@ -1,6 +1,7 @@
 defmodule RiceCooker.Tui.Readline do
   def select(list) do
-    IO.puts "\n"
+    IO.puts("\n")
+
     list
     |> Enum.with_index()
     |> Enum.each(fn {label, idx} ->

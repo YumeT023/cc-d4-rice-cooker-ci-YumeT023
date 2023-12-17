@@ -15,11 +15,11 @@ defmodule RiceCooker.CLI do
   end
 
   defp run("Cook", cooker) do
-    IO.puts "cook";
+    IO.puts("cook")
     show_menu(cooker)
   end
 
-  defp run("Exit", cooker), do: IO.puts "Done!"
+  defp run("Exit", _), do: IO.puts("Done!")
 
   defp run(_, cooker) do
     show_menu(cooker)
