@@ -1,5 +1,6 @@
 defmodule RiceCooker do
-  alias RiceCooker.Core.Model.RiceCooker, as: Rc
+  alias RiceCooker.Core.Model.Rc
+  alias RiceCooker.Core.Model.RcAction
   alias RiceCooker.Tui
 
   defp get_rice_cooker, do: %Rc{}
@@ -9,21 +10,9 @@ defmodule RiceCooker do
     |> show_menu()
   end
 
-  defp show_menu(cooker) do
-    menu =
-      Tui.Readline.select([
-        "State",
-        "Plug",
-        "Unplug",
-        "Open the lid",
-        "Close the lid",
-        "Place raw  food in the inner pot",
-        "Add water",
-        "Cook",
-        "Get ready-to-serve food",
-        "Exit"
-      ])
-
+  defp show_menu(cooker = %Rc{}) do
+    menu = Tui.Readline.select(RcAction.generate(cooker))
+    IO.inspect "res #{menu}"
     run(menu, cooker)
   end
 
@@ -48,7 +37,7 @@ defmodule RiceCooker do
     show_menu(cooker |> Rc.set_is_lid_open(false))
   end
 
-  defp run("Cook", cooker) do
+  defp run("Cook now", cooker) do
     show_menu(cooker |> Rc.cook())
   end
 
