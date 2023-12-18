@@ -12,7 +12,6 @@ defmodule RiceCooker do
 
   defp show_menu(cooker = %Rc{}) do
     menu = Tui.Readline.select(RcAction.generate(cooker))
-    IO.inspect "res #{menu}"
     run(menu, cooker)
   end
 
@@ -51,11 +50,11 @@ defmodule RiceCooker do
     show_menu(cooker |> Rc.add_water_cup(cup))
   end
 
-  defp run("Get ready-to-serve food", cooker) do
+  defp run("Get the ready-to-serve cook", cooker) do
     show_menu(cooker |> Rc.get_ready_to_serve_food())
   end
 
-  defp run("Exit", _), do: IO.puts("Done!")
+  defp run("Done", _), do: IO.puts("Done!")
 
   # Re-Display menu on invalid selection
   defp run(_, cooker) do
