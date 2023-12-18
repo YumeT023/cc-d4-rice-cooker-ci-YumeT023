@@ -1,3 +1,5 @@
+package core
+
 import core.RiceCooker
 import org.junit.jupiter.api.Test
 import kotlin.test.assertEquals
