@@ -1,0 +1,28 @@
+version: 2.1
+jobs:
+ tests:
+   docker:
+     - image: cimg/openjdk:17.0
+   steps:
+     - checkout
+     - run:
+         name: Install Gradle
+         command: |
+           wget https://services.gradle.org/distributions/gradle-8.2-bin.zip
+           unzip gradle-8.2-bin.zip
+           echo "export PATH=$PATH:/opt/gradle-8.2/bin" >> $BASH_ENV
+     - run:
+         name: Install Kotlin
+         command: |
+           wget https://github.com/JetBrains/kotlin/releases/download/v1.9.21/kotlin-compiler-1.9.21.zip
+           unzip kotlin-compiler-1.9.21.zip
+           echo "export PATH=$PATH:/opt/kotlin-compiler-1.9.21/bin" >> $BASH_ENV
+     - run:
+         name: Run tests
+         command: |
+          chmod +x ./gradlew
+          ./gradlew test
+workflows:
+ ci:
+   jobs:
+     - tests
