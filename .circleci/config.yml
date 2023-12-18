@@ -1,0 +1,16 @@
+version: 2.1
+jobs:
+ tests:
+   docker:
+     - image: cimg/elixir:1.15
+   steps:
+     - checkout
+     - run: mix --version
+     - run: mix deps.get
+     - run:
+         name: Run tests
+         command: mix test
+workflows:
+ ci:
+   jobs:
+     - tests
