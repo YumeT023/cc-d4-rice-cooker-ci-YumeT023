@@ -1,25 +1,33 @@
-# Rice cooker
+# Vilany
+ 
+**Kotlin** implementation of the _Vilany_ app
 
-![vilany cooker](./assets/img.png)
+### Description
 
 Mimics the behavior of a real rice cooker through command line interface.
 
-#### It has been implemented in 4 different languages
-- [Kotlin](https://github.com/hei-school/cc-d4-rice-cooker-ci-YumeT023/tree/feature/kotlin)
-- [Javascript](https://github.com/hei-school/cc-d4-rice-cooker-ci-YumeT023/tree/feature/javascript)
-- C
-- Elixir
-### Features
+### Run locally ✨
 
-- [x] Plug/Unplug
-- [x] Open/Close the lid of the rice cooker
-- [ ] Place raw food into the inner pot of the rice cooker
-  - [x] rice
-  - [ ] other kind of food   
-- [x] interactive timer while waiting
-- [ ] Set cooking mode and timer
-  - [x] Cook
-  - [ ] Keep warm
-  - [ ] Steamer
-- [x] Get the ready-to-serve cook (Emptying the pot)
-- [x] Begin the cooking process
+#### Setup requirements 
+
+- OpenJdk (>=17) download and install it on [Oracle Website](https://www.oracle.com/java/technologies/downloads/#java17)
+- Gradle 8.2 download it [here](https://services.gradle.org/distributions/gradle-8.2-bin.zip)
+- Kotlin 1.9.21 download it [here](https://github.com/JetBrains/kotlin/releases/download/v1.9.21/kotlin-compiler-1.9.21.zip)
+
+#### Run
+
+- Clone and checkout the `feature/kotlin` branch
+  ```shell
+  git clone https://github.com/hei-school/cc-d4-rice-cooker-ci-YumeT023
+  git checkout feature/kotlin
+  ```
+
+- Run
+  ```
+  chmod +x ./gradlew
+  ./gradlew run
+  ```
+
+### Circle CI
+
+[Config](https://github.com/hei-school/cc-d4-rice-cooker-ci-YumeT023/blob/feature/kotlin/.circleci/config.yml)
