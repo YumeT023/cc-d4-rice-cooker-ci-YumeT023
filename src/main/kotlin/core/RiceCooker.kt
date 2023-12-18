@@ -36,10 +36,18 @@ class RiceCooker(val capacity: Float? = DEFAULT_RICE_COOKER_CAPACITY) {
         private set
 
     fun addRiceCup(cup: Float = 0.0f) {
+        if (!isLidOpen) {
+            Printer.info("Consider opening the inner pot lid");
+            return;
+        }
         riceCup += cup
     }
 
     fun addWaterCup(cup: Float = 0.0f) {
+        if (!isLidOpen) {
+            Printer.info("Consider opening the inner pot lid");
+            return;
+        }
         waterCup += cup
     }
 
@@ -57,7 +65,11 @@ class RiceCooker(val capacity: Float? = DEFAULT_RICE_COOKER_CAPACITY) {
     fun getCooked() {
         if (!isLidOpen) {
             Printer.info("Consider removing the inner port's cover")
+            return;
         }
+        riceCup = 0f
+        waterCup = 0f
+        isFoodReadyToServe = false
     }
 
     fun logRecommendation() {
