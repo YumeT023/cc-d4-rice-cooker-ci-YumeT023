@@ -1,7 +1,13 @@
 export const printLogo = () => {
   console.log(
-      `%cRice cooker`,
-      'color: yellow; font-weight: bold',
+      `
+   Y88b      / 888 888          e      888b    | Y88b    /
+    Y88b    /  888 888         d8b     |Y88b   |  Y88b  / 
+     Y88b  /   888 888        /Y88b    | Y88b  |   Y88b/  
+      Y888/    888 888       /  Y88b   |  Y88b |    Y8Y   
+       Y8/     888 888      /____Y88b  |   Y88b|     Y    
+        Y      888 888____ /      Y88b |    Y888    /     
+    `,
   );
 };
 
