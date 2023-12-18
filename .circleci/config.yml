@@ -1,0 +1,14 @@
+version: 2.1
+jobs:
+  tests:
+    docker:
+      - image: cimg/node:18.19.0
+    steps:
+      - checkout
+      - run: npm ci
+      - run: npm test
+
+workflows:
+  ci:
+    jobs:
+      - tests
