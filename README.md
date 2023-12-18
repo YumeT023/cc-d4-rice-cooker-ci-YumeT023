@@ -1,4 +1,4 @@
-# Rice cooker
+# Vilany
 
 `Javascript` implementaton of the _Vilany_ app
 
