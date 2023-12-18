@@ -7,5 +7,5 @@ defmodule RiceCooker.Tui.Printer do
   def recommendation(str), do: print_level(@recommendation, str)
   def warning(str), do: print_level(@warning, str)
 
-  defp print_level(level, str), do: "[#{level}]: #{str}"
+  defp print_level(level, str), do: IO.puts "[#{level}]: #{str}"
 end

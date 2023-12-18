@@ -1,5 +1,7 @@
 defmodule RiceCooker.Core.Model do
   defmodule Rc do
+    alias RiceCooker.Tui.Printer
+
     @default_capacity 20
     # simplicity purpose
     @seconds_per_cup 2
@@ -20,7 +22,7 @@ defmodule RiceCooker.Core.Model do
     def add_rice_cup(self, cup \\ 0)
 
     def add_rice_cup(self = %Rc{is_ready: true}, _) do
-      IO.puts("Couldn't put rice in the pot")
+      Printer.warning("Couldn't put rice in the pot")
       self
     end
 
@@ -30,7 +32,7 @@ defmodule RiceCooker.Core.Model do
     def add_water_cup(self, cup \\ 0)
 
     def add_water_cup(self = %Rc{is_ready: true}, _) do
-      IO.puts("Couldn't put water in the pot")
+      Printer.warning("Couldn't put water in the pot")
       self
     end
 
@@ -38,46 +40,47 @@ defmodule RiceCooker.Core.Model do
       do: %{self | water_cup: self.water_cup + cup}
 
     def get_ready_to_serve_food(self = %Rc{is_lid_open: false}) do
-      IO.puts("Consider opening the lid of the inner pot first")
+      Printer.info("Consider opening the lid of the inner pot first")
       self
     end
 
     def get_ready_to_serve_food(self = %Rc{is_ready: false}) do
-      IO.puts("Food hasn't been cooked yet")
+      Printer.info("Food hasn't been cooked yet")
       self
     end
 
     def get_ready_to_serve_food(self = %Rc{}) do
-      IO.puts("matches")
+      Printer.info("Emptying the inner pot...")
+      :timer.sleep(200)
       %{self | is_ready: false, rice_cup: 0, water_cup: 0}
     end
 
     def cook(self = %Rc{is_lid_open: true}) do
-      IO.puts("Ensure the inner pot lid is closed")
+      Printer.warning("Ensure the inner pot lid is closed")
       self
     end
 
     def cook(self = %Rc{is_plugged: false}) do
-      IO.puts("Plug the rice cooker to start cooking")
+      Printer.info("Plug the rice cooker to start cooking")
       self
     end
 
     def cook(self = %Rc{rice_cup: rice_cup, water_cup: water_cup})
         when rice_cup < 0 or water_cup < 0 do
-      IO.puts("Inner pot must contains rice and water before starting to cook")
+      Printer.warning("Inner pot must contains rice and water before starting to cook")
       self
     end
 
     def cook(self = %Rc{is_ready: true}) do
-      IO.puts("Food is already ready-to-served")
+      Printer.info("Food is already ready-to-served")
       self
     end
 
     def cook(self) do
       milliseconds = get_estimated_cooking_duration_seconds(self) * 1000
-      IO.puts("cooking... [estimated_time: #{milliseconds}]")
+      Printer.info("cooking... [estimated_time: #{milliseconds}]")
       :timer.sleep(milliseconds)
-      IO.puts("Food is ready-to-serve")
+      Printer.info("Food is ready-to-serve")
       %Rc{self | is_ready: true}
     end
 
