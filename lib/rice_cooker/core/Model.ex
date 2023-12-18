@@ -13,7 +13,7 @@ defmodule RiceCooker.Core.Model do
               water_cup: 0,
               rice_cup: 0
 
-    defguardp can_put_in_inner_pot(self) when self.is_lid_open and not self.is_plugged
+    defguardp is_not_configurable(self) when not self.is_lid_open or self.is_plugged
 
     def set_is_plugged(self = %Rc{}, is_plugged), do: %{self | is_plugged: is_plugged}
 
@@ -26,7 +26,12 @@ defmodule RiceCooker.Core.Model do
       self
     end
 
-    def add_rice_cup(self = %Rc{}, cup) when can_put_in_inner_pot(self),
+    def add_rice_cup(self = %Rc{}, _) when is_not_configurable(self) do
+      Printer.info("Consider opening the lid of the inner pot first")
+      self
+    end
+
+    def add_rice_cup(self = %Rc{}, cup),
       do: %{self | rice_cup: self.rice_cup + cup}
 
     def add_water_cup(self, cup \\ 0)
@@ -36,7 +41,12 @@ defmodule RiceCooker.Core.Model do
       self
     end
 
-    def add_water_cup(self = %Rc{}, cup) when can_put_in_inner_pot(self),
+    def add_water_cup(self = %Rc{}, _) when is_not_configurable(self) do
+      Printer.info("Consider opening the lid of the inner pot first")
+      self
+    end
+
+    def add_water_cup(self = %Rc{}, cup),
       do: %{self | water_cup: self.water_cup + cup}
 
     def get_ready_to_serve_food(self = %Rc{is_lid_open: false}) do
@@ -66,7 +76,7 @@ defmodule RiceCooker.Core.Model do
     end
 
     def cook(self = %Rc{rice_cup: rice_cup, water_cup: water_cup})
-        when rice_cup < 0 or water_cup < 0 do
+        when rice_cup == 0 or water_cup == 0 do
       Printer.warning("Inner pot must contains rice and water before starting to cook")
       self
     end
