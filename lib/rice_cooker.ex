@@ -21,37 +21,55 @@ defmodule RiceCooker do
   end
 
   defp run("Plug", cooker) do
-    show_menu(cooker |> Rc.set_is_plugged(true))
+    cooker
+    |> Rc.set_is_plugged(true)
+    |> show_menu()
   end
 
   defp run("Unplug", cooker) do
-    show_menu(cooker |> Rc.set_is_plugged(false))
+    cooker
+    |> Rc.set_is_plugged(false)
+    |> show_menu()
   end
 
   defp run("Open the lid", cooker) do
-    show_menu(cooker |> Rc.set_is_lid_open(true))
+    cooker
+    |> Rc.set_is_lid_open(true)
+    |> show_menu()
   end
 
   defp run("Close the lid", cooker) do
-    show_menu(cooker |> Rc.set_is_lid_open(false))
+    cooker
+    |> Rc.set_is_lid_open(false)
+    |> show_menu()
   end
 
   defp run("Cook now", cooker) do
-    show_menu(cooker |> Rc.cook())
+    cooker
+    |> Rc.cook()
+    |> show_menu()
   end
 
   defp run("Place raw food in the inner pot", cooker) do
     cup = Tui.Readline.int("Rice cup")
-    show_menu(cooker |> Rc.add_rice_cup(cup))
+
+    cooker
+    |> Rc.add_rice_cup(cup)
+    |> show_menu()
   end
 
   defp run("Add water", cooker) do
     cup = Tui.Readline.int("Water cup")
-    show_menu(cooker |> Rc.add_water_cup(cup))
+
+    cooker
+    |> Rc.add_water_cup(cup)
+    |> show_menu()
   end
 
   defp run("Get the ready-to-serve cook", cooker) do
-    show_menu(cooker |> Rc.get_ready_to_serve_food())
+    cooker
+    |> Rc.get_ready_to_serve_food()
+    |> show_menu()
   end
 
   defp run("Done", _), do: IO.puts("Done!")
