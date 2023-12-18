@@ -5,7 +5,8 @@
   "main": "main.js",
   "scripts": {
     "start": "node ./src/main.js",
-    "lint": "eslint src"
+    "lint": "eslint src",
+    "test": "vitest"
   },
   "type": "module",
   "repository": {

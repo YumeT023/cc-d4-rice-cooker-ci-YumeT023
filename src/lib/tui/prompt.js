@@ -35,9 +35,10 @@ export function promptAsync(query) {
 /**
  * @param {number} milliseconds
  * @param {function()?} onStart
+ * @param {boolean} realtimeTimerLog
  * @return {Promise<boolean>} if it's cancelled or not
  */
-export const waitOrAbort = async (milliseconds, onStart) => {
+export const waitOrAbort = async (milliseconds, onStart, realtimeTimerLog) => {
   // scheduler.wait(milliseconds);
   rl.setPrompt('Press any key to cancel: ');
   const interval = createIntervalPrinter(100);
@@ -57,7 +58,7 @@ export const waitOrAbort = async (milliseconds, onStart) => {
     // start
     onStart && onStart();
     rl.prompt();
-    interval.start();
+    if (realtimeTimerLog) interval.start();
 
     scheduler.wait(milliseconds, {signal})
         .then(() => {

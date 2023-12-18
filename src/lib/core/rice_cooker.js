@@ -108,6 +108,10 @@ export class RiceCooker {
    * @param {number} riceCup
    */
   addRice(riceCup = 0) {
+    if (!this.#isLidOpen) {
+      console.log('[HINT] consider opening the lid of the inner pot');
+      return;
+    }
     this.#riceCup += riceCup;
     this.logRecommendation();
   }
@@ -116,21 +120,26 @@ export class RiceCooker {
    * @param {number} waterCup
    */
   addWater(waterCup = 0) {
+    if (!this.#isLidOpen) {
+      console.log('[HINT] consider opening the lid of the inner pot');
+      return;
+    }
     this.#waterCup += waterCup;
     this.logRecommendation();
   }
 
   /**
    * Begin cooking
+   * @param {boolean} realtimeTimerLog
    */
-  async cook() {
+  async cook(realtimeTimerLog = true) {
     const timeMilliS =
         getEstimatedCookDurationByFoodCupSeconds(this.#riceCup) * 1_000;
 
     const cancelled = await waitOrAbort(timeMilliS, function onStart() {
       console.log('Cooking..., [WARN] for your security, don\'t ' +
       'try to cancel');
-    });
+    }, realtimeTimerLog);
 
     if (cancelled) {
       console.log('[DANGEROUS] Do not use this option ' +
