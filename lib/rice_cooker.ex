@@ -6,6 +6,8 @@ defmodule RiceCooker do
   defp get_rice_cooker, do: %Rc{}
 
   def main(_) do
+    Tui.Printer.logo()
+
     get_rice_cooker()
     |> show_menu()
   end
