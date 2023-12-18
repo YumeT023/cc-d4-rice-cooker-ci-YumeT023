@@ -1,4 +1,4 @@
-# Rice cooker
+# Vilany
 
 **Elixir** implementation of the _Vilany_ app
 
