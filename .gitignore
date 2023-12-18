@@ -6,6 +6,9 @@ build
 !**/src/test/**/out/
 *.iml
 
+### Gradle
+.gradle
+
 ### Eclipse ###
 .apt_generated
 .classpath
